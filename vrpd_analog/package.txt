@@ -1,0 +1,3 @@
+NAME=vrpd_analog
+SRCS=vrpd_analog.cpp 
+LIBS+=/usr/local/lib/libvrpn.a
