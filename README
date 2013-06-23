@@ -1,3 +1,14 @@
-Vrpn for Pure-Data
-developed at SCRIME, University of Bordeaux
-by Florent Berthaut
+VRPN for Pure-Data and Max/MSP
+developed at the SCRIME, University of Bordeaux
+by Florent Berthaut, http://hitmuri.net
+
+From the VRPN website: "The Virtual-Reality Peripheral Network (VRPN) is a set of classes within a library and a set of servers that are designed to implement a network-transparent interface between application programs and the set of physical devices (tracker, etc.) used in a virtual-reality (VR) system."
+http://www.cs.unc.edu/Research/vrpn/index.html
+
+(You can also find a list of devices/drivers on the website)
+
+VRPD allows one to receive data from vrpn_Tracker, vrpn_Analog and vrpn_Button devices sent by a VRPN server in PureData and Max/MSP.
+
+There are binaries for Pd / GNU/Linux and Pd/MacOSX in the bin directory.
+Otherwise you can compile the externals for your platform using the flext scripts in each directory, or at once using "./waf configure;./waf" 
+
