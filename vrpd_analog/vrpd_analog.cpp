@@ -11,31 +11,24 @@
 
 using namespace std;
 
-class vrpd_analog : public flext_base
-{
+class vrpd_analog : public flext_base {
 		FLEXT_HEADER(vrpd_analog,flext_base)
-	 
 	public:
-
 		vrpd_analog(int argc, t_atom *argv);
 
 	protected:
-
 		void m_update();
 
 	private:
-
 		vrpn_Analog_Remote* m_analog;
 		
 		static void handleAnalog(void *userdata, vrpn_ANALOGCB t);
 		void process(vrpn_ANALOGCB t);
 
 		FLEXT_CALLBACK(m_update);  
-	
 };
 
 FLEXT_NEW_V("vrpd_analog",vrpd_analog)
-
 
 vrpd_analog::vrpd_analog(int argc, t_atom *argv) {
 	//bang for new values
@@ -46,7 +39,7 @@ vrpd_analog::vrpd_analog(int argc, t_atom *argv) {
 	FLEXT_ADDMETHOD(0,m_update);
 
 	if(argc != 0) { // check for arg count
-		post("vrpd_analog, a client for the VRPN protocol, by Florent Berthaut, SCRIME,  Université de Bordeaux. ");
+		post("vrpd_analog, a client for the VRPN protocol, by Florent Berthaut (hitmuri.net), SCRIME,  Université de Bordeaux. ");
 		m_analog = new vrpn_Analog_Remote(GetString(argv[0]));
 		m_analog->register_change_handler(this, handleAnalog);
 	}
@@ -67,7 +60,7 @@ void vrpd_analog::process(vrpn_ANALOGCB a) {
         //fill number channels
         SetFloat(list[0],a.num_channel);
         //fill channels
-        for(unsigned int c=0;c<a.num_channel-1;++c) {
+        for(int c=0;c<a.num_channel-1;++c) {
             SetFloat(list[c+1],a.channel[c]);
         }
 

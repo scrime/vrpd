@@ -11,31 +11,25 @@
 
 using namespace std;
 
-class vrpd_button : public flext_base
-{
+class vrpd_button : public flext_base {
 		FLEXT_HEADER(vrpd_button,flext_base)
 	 
 	public:
-
 		vrpd_button(int argc, t_atom *argv);
 
 	protected:
-
 		void m_update();
 
 	private:
-
 		vrpn_Button_Remote* m_button;
 		
 		static void handleButton(void *userdata, vrpn_BUTTONCB t);
 		void process(vrpn_BUTTONCB t);
 
 		FLEXT_CALLBACK(m_update);  
-	
 };
 
 FLEXT_NEW_V("vrpd_button",vrpd_button)
-
 
 vrpd_button::vrpd_button(int argc, t_atom *argv) {
 	//bang for new values
@@ -46,7 +40,7 @@ vrpd_button::vrpd_button(int argc, t_atom *argv) {
 	FLEXT_ADDMETHOD(0,m_update);
 
 	if(argc != 0) { // check for arg count
-		post("vrpd_button, a client for the VRPN protocol, by Florent Berthaut, SCRIME,  Université de Bordeaux. ");
+		post("vrpd_button, a client for the VRPN protocol, by Florent Berthaut (hitmuri.net), SCRIME,  Université de Bordeaux. ");
 		m_button = new vrpn_Button_Remote(GetString(argv[0]));
 		m_button->register_change_handler(this, handleButton);
 	}
@@ -61,8 +55,7 @@ void vrpd_button::m_update() {
 	m_button->mainloop();
 }
 
-void vrpd_button::process(vrpn_BUTTONCB b)
-{
+void vrpd_button::process(vrpn_BUTTONCB b) {
 	AtomList list(2);
 	//fill id
 	SetFloat(list[0],b.button);
@@ -76,6 +69,4 @@ void vrpd_button::handleButton(void *userdata, vrpn_BUTTONCB t) {
 	vrpd_button* vrpd = (vrpd_button*)userdata;
 	vrpd->process(t);
 }
-
-
 

@@ -11,31 +11,24 @@
 
 using namespace std;
 
-class vrpd_tracker : public flext_base
-{
+class vrpd_tracker : public flext_base {
 		FLEXT_HEADER(vrpd_tracker,flext_base)
-	 
 	public:
-
 		vrpd_tracker(int argc, t_atom *argv);
 
 	protected:
-
 		void m_update();
 
 	private:
-
 		vrpn_Tracker_Remote* m_tracker;
 		
 		static void handleTracker(void *userdata, vrpn_TRACKERCB t);
 		void process(vrpn_TRACKERCB t);
 
 		FLEXT_CALLBACK(m_update);  
-	
 };
 
 FLEXT_NEW_V("vrpd_tracker",vrpd_tracker)
-
 
 vrpd_tracker::vrpd_tracker(int argc, t_atom *argv) {
 	//bang for new values
@@ -48,7 +41,7 @@ vrpd_tracker::vrpd_tracker(int argc, t_atom *argv) {
 	FLEXT_ADDMETHOD(0,m_update);
 
 	if(argc != 0) { // check for arg count
-		post("vrpd_tracker, a client for the VRPN protocol, by Florent Berthaut, SCRIME,  Université de Bordeaux. ");
+		post("vrpd_tracker, a client for the VRPN protocol, by Florent Berthaut (hitmuri.net), SCRIME,  Université de Bordeaux. ");
 		m_tracker = new vrpn_Tracker_Remote(GetString(argv[0]));
 		m_tracker->register_change_handler(this, handleTracker);
 	}
@@ -63,8 +56,7 @@ void vrpd_tracker::m_update() {
 	m_tracker->mainloop();
 }
 
-void vrpd_tracker::process(vrpn_TRACKERCB t)
-{
+void vrpd_tracker::process(vrpn_TRACKERCB t) {
 	AtomList list(8);
 	//fill id
 	SetFloat(list[0],t.sensor);
